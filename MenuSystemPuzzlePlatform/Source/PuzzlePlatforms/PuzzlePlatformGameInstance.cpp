@@ -12,9 +12,10 @@
 UPuzzlePlatformGameInstance::UPuzzlePlatformGameInstance(const FObjectInitializer& ObjectInitializer)
 {
 	ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
-	if (!ensure(MenuBPClass.Class != nullptr)) return;
+	if (!ensure(MenuBPClass.Class != nullptr)) { return; }
 
 	MenuClass = MenuBPClass.Class;
+
 }
 
 void UPuzzlePlatformGameInstance::Init()
@@ -25,12 +26,12 @@ void UPuzzlePlatformGameInstance::Init()
 void UPuzzlePlatformGameInstance::Host()
 {
 	UEngine* Engine = GetEngine();
-	if (!ensure(Engine != nullptr)) return;
+	if (!ensure(Engine != nullptr)) { return; }
 	// 0 means, each time through we will update the existing message instead 
 	Engine->AddOnScreenDebugMessage(0, 10, FColor::Blue, TEXT("Hosting"));
 
 	UWorld* World = GetWorld();
-	if (!ensure(World != nullptr)) return;
+	if (!ensure(World != nullptr)) { return; }
 
 	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 }
@@ -38,25 +39,25 @@ void UPuzzlePlatformGameInstance::Host()
 void UPuzzlePlatformGameInstance::Join(const FString& Address)
 {
 	UEngine* Engine = GetEngine();
-	if (!ensure(Engine != nullptr)) return;
+	if (!ensure(Engine != nullptr)) { return; }
 	// 0 means, each time through we will update the existing message instead 
 	Engine->AddOnScreenDebugMessage(0, 10, FColor::Blue, FString::Printf(TEXT("Joining %s"), *Address));
 
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
-	if (!ensure(PlayerController != nullptr)) return;
+	if (!ensure(PlayerController != nullptr)) { return; }
 
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 }
 
 void UPuzzlePlatformGameInstance::LoadMenu()
 {
-	if (!ensure(MenuClass != nullptr)) return;
+	if (!ensure(MenuClass != nullptr)) { return; }
 	UUserWidget* Menu = CreateWidget<UUserWidget>(this, MenuClass);
-	if (!ensure(Menu != nullptr)) return;
+	if (!ensure(Menu != nullptr)) { return; }
 	Menu->AddToViewport();
 
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
-	if (!ensure(PlayerController != nullptr)) return;
+	if (!ensure(PlayerController != nullptr)) { return; }
 	
 	FInputModeUIOnly InputModeData;
 	InputModeData.SetWidgetToFocus(Menu->TakeWidget()); // SetWidgetToFocus(it needs SWidget) // TakeWidget() is SWidget
