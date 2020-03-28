@@ -5,6 +5,7 @@
 #include "Components/Button.h"
 #include "Engine/Engine.h"
 
+
 bool UMainMenu::Initialize()
 {
 	bool Success = Super::Initialize(); // If This Method Fails
@@ -15,7 +16,17 @@ bool UMainMenu::Initialize()
 	return true;
 }
 
+void UMainMenu::SetMenuInterface(IMenuInterface* MenuToInterface)
+{
+	this->MenuInterface = MenuToInterface;
+}
+
 void UMainMenu::HostServer()
 {
-	UE_LOG(LogTemp,Warning,TEXT("Host Clicked"))
+	UE_LOG(LogTemp, Warning, TEXT("Host Clicked"))
+
+	if (MenuInterface != nullptr)
+	{
+		MenuInterface->Host();
+	}
 }

@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "MenuSystem/MenuInterface.h" // Add The Folder Prefix
 #include "PuzzlePlatformGameInstance.generated.h"
 
 /**
- * 
+ * (Now This is Child of MenuInterface) 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UPuzzlePlatformGameInstance : public UGameInstance
+class PUZZLEPLATFORMS_API UPuzzlePlatformGameInstance : public UGameInstance, public IMenuInterface 
 {
 	GENERATED_BODY()
 	
