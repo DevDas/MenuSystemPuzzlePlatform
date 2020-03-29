@@ -25,6 +25,11 @@ void UPuzzlePlatformGameInstance::Init()
 
 void UPuzzlePlatformGameInstance::Host()
 {
+	if (Menu != nullptr)
+	{
+		Menu->Teardown();
+	}
+
 	UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) { return; }
 	// 0 means, each time through we will update the existing message instead 
@@ -51,19 +56,12 @@ void UPuzzlePlatformGameInstance::Join(const FString& Address)
 
 void UPuzzlePlatformGameInstance::LoadMenu()
 {
-	if (!ensure(MenuClass != nullptr)) { return; }
-	UMainMenu* Menu = CreateWidget<UMainMenu>(this, MenuClass);
-	if (!ensure(Menu != nullptr)) { return; }
-	Menu->AddToViewport();
+	if (!ensure(MenuClass != nullptr)) return;
 
-	APlayerController* PlayerController = GetFirstLocalPlayerController();
-	if (!ensure(PlayerController != nullptr)) { return; }
+	Menu = CreateWidget<UMainMenu>(this, MenuClass);
+	if (!ensure(Menu != nullptr)) { return; }
 	
-	FInputModeUIOnly InputModeData;
-	InputModeData.SetWidgetToFocus(Menu->TakeWidget()); // SetWidgetToFocus(it needs SWidget) // TakeWidget() is SWidget
-	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-	PlayerController->SetInputMode(InputModeData);
-	PlayerController->bShowMouseCursor = true;
+	Menu->Setup(); // Setup Method of MainMenu.cpp
 
 	Menu->SetMenuInterface(this);
 }
