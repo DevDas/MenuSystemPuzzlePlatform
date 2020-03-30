@@ -28,9 +28,16 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void LoadMenu();
+
+	UFUNCTION(BlueprintCallable)
+	void InGameLoadMenu();
 	
 private:
+	// For Construct The Widget From File
 	TSubclassOf<class UUserWidget> MenuClass;
 
+	TSubclassOf<class UUserWidget> InGameMenuClass;
+	
+	// Local Variable To Create Widget 
 	class UMainMenu* Menu;
 };
