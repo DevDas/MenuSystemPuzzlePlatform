@@ -11,8 +11,8 @@
  * (Now This is Child of MenuInterface) 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UPuzzlePlatformGameInstance : public UGameInstance, public IMenuInterface 
-{
+class PUZZLEPLATFORMS_API UPuzzlePlatformGameInstance : public UGameInstance, public IMenuInterface
+{	
 	GENERATED_BODY()
 	
 public:
