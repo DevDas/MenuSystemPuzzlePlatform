@@ -20,6 +20,7 @@ public:
 
 	void Setup();
 
+	UFUNCTION()
 	void Teardown();
 
 protected:
